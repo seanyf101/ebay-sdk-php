@@ -36,6 +36,7 @@
             "DTS\\eBaySDK\\ResolutionCaseManagement\\Mocks\\": "test/",
             "DTS\\eBaySDK\\Shopping\\Mocks\\": "test/",
             "DTS\\eBaySDK\\Trading\\Mocks\\": "test/"
-        }
+        },
+        "files": ["src/DTS/eBaySDK/functions.php"]
     }
 }
