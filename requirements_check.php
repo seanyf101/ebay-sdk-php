@@ -1,19 +1,5 @@
 <?php
-/**
- * Copyright 2014 David T. Sadler
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+namespace Requirements;
 
 class RequirementsCheck
 {
@@ -25,7 +11,8 @@ class RequirementsCheck
         $this->isCli = php_sapi_name() === 'cli';
 
         if (!$this->isCli) {
-            $this->lines[] = sprintf('<style type="text/css">%s %s %s %s</style>',
+            $this->lines[] = sprintf(
+                '<style type="text/css">%s %s %s %s</style>',
                 'html {font-family:verdana;}',
                 'div {margin: 0.5em 0 2em; padding: 1em;}',
                 '.ok {background:#dfffdf;border: 2px solid #0bo;color:#264409;}',
@@ -105,6 +92,15 @@ class RequirementsCheck
         }
     }
 
+    public function check64Bit()
+    {
+        if (PHP_INT_MAX === 9223372036854775807) {
+            $this->pass('You are running a 64-bit version of PHP');
+        } else {
+            $this->fail('You are not running a 64-bit version of PHP. You may run into issues with integer values been to long for object properties.');
+        }
+    }
+
     public function phpInfo()
     {
         ob_start();
@@ -117,23 +113,24 @@ class RequirementsCheck
         $text = implode("\n", $this->lines);
         echo $this->isCli ? $text."\n\n" : "<!doctype html><html><body>$text</body></html>";
     }
-
 }
 
 $check = new RequirementsCheck();
 $check->title('eBay SDK for PHP Requirements Check');
 
 $check->header('System Requirements');
-$check->checkPhpVersion('5.3.9.');
+$check->checkPhpVersion('5.5.0');
 
-foreach(array('curl', 'libxml') as $ext) {
+foreach (array('curl', 'libxml') as $ext) {
     $check->checkExt($ext);
 }
 
 $check->checkCurl();
 
+$check->check64Bit();
+
 $check->title('PHP information');
 
-$check->phpinfo();
+$check->phpInfo();
 
 $check->endCheck();

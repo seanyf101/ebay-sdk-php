@@ -4,7 +4,7 @@
     "keywords": ["ebay", "api", "sdk"],
     "homepage": "http://devbay.net/",
     "type": "library",
-    "license": "Apache-2.0",
+    "license": "(Apache-2.0 and MIT)",
     "authors": [
         {
             "name": "David T. Sadler",
@@ -16,27 +16,25 @@
         "issues": "https://github.com/davidtsadler/ebay-sdk-php/issues"
     },
     "require": {
-        "php": ">=5.3.9",
-        "guzzle/guzzle": "~3.7",
-        "psr/log": "~1.0"
+        "php": ">=5.5",
+        "guzzlehttp/guzzle": "~6.0",
+        "guzzlehttp/psr7": "~1.0",
+        "guzzlehttp/promises": "^1.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "~3.7.0"
+        "phpunit/phpunit": "~4.0",
+        "squizlabs/php_codesniffer": "2.*"
     },
     "autoload": {
-        "psr-0": {
-            "DTS\\eBaySDK\\": "src/",
-            "DTS\\eBaySDK\\Mocks\\": "test/",
-            "DTS\\eBaySDK\\BulkDataExchange\\Mocks\\": "test/",
-            "DTS\\eBaySDK\\BusinessPoliciesManagement\\Mocks\\": "test/",
-            "DTS\\eBaySDK\\FileTransfer\\Mocks\\": "test/",
-            "DTS\\eBaySDK\\Finding\\Mocks\\": "test/",
-            "DTS\\eBaySDK\\HalfFinding\\Mocks\\": "test/",
-            "DTS\\eBaySDK\\MerchantData\\Mocks\\": "test/",
-            "DTS\\eBaySDK\\ResolutionCaseManagement\\Mocks\\": "test/",
-            "DTS\\eBaySDK\\ReturnManagement\\Mocks\\": "test/",
-            "DTS\\eBaySDK\\Shopping\\Mocks\\": "test/",
-            "DTS\\eBaySDK\\Trading\\Mocks\\": "test/"
-        }
+        "psr-4": {
+            "DTS\\eBaySDK\\": "src/"
+        },
+        "files": ["src/functions.php"]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DTS\\eBaySDK\\Test\\": "test/"
+        },
+        "classmap": ["build/"]
     }
 }
